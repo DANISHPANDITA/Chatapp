@@ -1,0 +1,178 @@
+.chat {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+}
+.chatHeader {
+  flex: 0.1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  font-family: "calibri";
+  font-size: 18px;
+  color: rgb(163, 159, 159);
+  border-bottom: 1px solid rgb(216, 206, 206);
+}
+
+.chatBody {
+  flex: 0.8;
+  background-color: rgb(228, 217, 217);
+  background-repeat: repeat;
+  background-position: center;
+  padding: 30px;
+  overflow: scroll;
+}
+.chatBody::-webkit-scrollbar {
+  display: none;
+}
+.chatFooter {
+  flex: 0.1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chatFooter form {
+  flex: 1;
+  display: flex;
+}
+.chatFooter form input {
+  flex: 0.9;
+  outline: none;
+  margin-bottom: 0px;
+  border: none;
+  font-family: "calibri";
+  border-radius: 20px;
+  font-size: 15px;
+}
+.chat_message {
+  position: relative;
+  font-size: 12px;
+  font-family: "calibri";
+  background-color: rgb(137, 206, 238);
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+.chat_timestamp {
+  margin-left: 10px;
+  color: rgb(148, 147, 147);
+  font-weight: bold;
+  font-size: 9px;
+}
+.chat_receiver {
+  margin-left: auto;
+  position: relative;
+  font-size: 12px;
+  font-family: "calibri";
+  background-color: rgb(129, 236, 115);
+  width: fit-content;
+  text-align: right;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+.chatFooter form button {
+  outline: none;
+  border: none;
+  height: 35px;
+  width: fit-content;
+  padding: 15px;
+  background-color: rgb(173, 169, 169);
+  border-radius: 5px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-family: "calibri";
+  box-shadow: 5px 5px 5px 5px rgb(143, 139, 139);
+  margin-left: 10px;
+}
+.chatFooter form button:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  transform: scale(1.2);
+  transition: all 0.35s;
+}
+.chat_name {
+  position: absolute;
+  top: -50px;
+  font-weight: bolder;
+  font-size: 11px;
+  left: 0;
+  padding: 20px;
+}
+.chat_message,
+.chat_receiver {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+@media screen and (max-width: 600px) {
+  .chatHeader {
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+  }
+  .chatBody {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+  }
+  .chat_message,
+  .chat_receiver {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    width: fit-content;
+    font-size: 0.6rem;
+  }
+  .chat_message {
+    align-items: flex-start;
+  }
+  .chat_receiver {
+    align-items: flex-end;
+  }
+  .chat_timestamp {
+    font-size: smaller;
+  }
+  .chat_name {
+    position: absolute;
+    top: -50px;
+    font-size: 0.8em;
+    left: 0px;
+  }
+  .delete_btn {
+    width: 15px !important;
+    height: 15px !important;
+  }
+  .chatFooter {
+    display: flex;
+    flex-direction: column;
+  }
+  .chatFooter form input {
+    font-size: 11px;
+    height: 20px;
+  }
+  .chatFooter form button {
+    font-size: 12px;
+    width: fit-content;
+    padding: 5px;
+    margin-bottom: 7px;
+  }
+  .emoji {
+    width: 20px !important;
+  }
+  .picker_emoji {
+    position: relative;
+    height: 100%;
+  }
+}
+.delete_btn {
+  height: 20px !important;
+  width: 20px !important;
+}

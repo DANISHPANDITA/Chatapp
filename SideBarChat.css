@@ -1,0 +1,83 @@
+.sidebarchat {
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px white solid;
+}
+.chatinfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  width: 100%;
+  height: 50px;
+  color: rgb(90, 90, 90);
+  margin-left: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: "calibri";
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.3);
+}
+.chatinfo:hover {
+  cursor: pointer;
+  background-color: rgb(196, 196, 196);
+  color: rgb(87, 87, 87);
+  transform: scale(0.9);
+
+  transition: all 0.5s;
+}
+.chatinfo h3 {
+  margin-top: 0;
+  font-size: 14px;
+  text-decoration: none;
+}
+.chatinfo h4 {
+  font-size: 11px;
+  text-decoration: none;
+}
+.sidebarchat:hover {
+  cursor: pointer;
+  background-color: rgb(209, 209, 209);
+}
+.createChat {
+  cursor: pointer;
+  background-color: rgb(231, 229, 229);
+  color: gray;
+}
+.createChat h2 {
+  font-family: "calibri";
+  font-size: 20px;
+  padding: 20px;
+}
+.createChat:hover {
+  background-color: rgb(107, 110, 107);
+  color: black;
+  transition: all 0.5s;
+}
+@media screen and (max-width: 600px) {
+  .chatinfo {
+    text-decoration: none;
+    margin: 0;
+    height: 40px;
+    padding: 20px;
+  }
+  .chatinfo h3 {
+    margin-top: 0px;
+    font-size: 10px;
+    text-decoration: none;
+  }
+  .chatinfo h4 {
+    margin-top: 0px;
+    font-size: 9px;
+    text-decoration: none;
+  }
+
+  .createChat h2 {
+    font-size: 0.7em;
+  }
+  .createChat {
+    font-size: 10px;
+    width: 100%;
+  }
+}

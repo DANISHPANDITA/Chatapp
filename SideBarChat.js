@@ -1,20 +1,37 @@
-import { Avatar } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Avatar, IconButton } from "@material-ui/core";
+import { Link, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState, useEffect } from "react";
 import db from "./firebase";
 import "./SideBarChat.css";
+import { DeleteOutlineTwoTone } from "@material-ui/icons";
 function SideBarChat({ addNewChat, id, Name }) {
   const [img, setimg] = useState("");
+  const [names, setnames] = useState([]);
   const [messages, setmessages] = useState("");
+  const { chatid } = useParams();
+  useEffect(() => {
+    db.collection("Chats").onSnapshot((snapshot) =>
+      setnames(snapshot.docs.map((doc) => doc.data().Name))
+    );
+  }, []);
+
   const createChat = () => {
     const name = prompt("New Name");
+    const id = prompt("Create an id");
+
     if (name) {
-      db.collection("Chats").add({
-        Name: name,
-      });
+      if (names.includes(name)) {
+        alert("Similar Name Exists");
+      } else {
+        db.collection("Chats").add({
+          id: id,
+          Name: name,
+        });
+      }
     }
   };
+
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
@@ -61,7 +78,16 @@ function SideBarChat({ addNewChat, id, Name }) {
           alt=""
         />
         <div className="chatinfo">
-          <h3>{Name}</h3>
+          <div className="sidebarChatHeader">
+            <h3>{Name}</h3>
+            <IconButton className="sidebarSettings">
+              <DeleteOutlineTwoTone
+                onClick={(event) => {
+                  db.collection("Chats").doc(chatid).delete();
+                }}
+              />
+            </IconButton>
+          </div>
           <h4>{truncate(messages[0]?.message, 4)}</h4>
         </div>
       </div>

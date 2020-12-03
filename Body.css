@@ -15,9 +15,32 @@
   color: rgb(163, 159, 159);
   border-bottom: 1px solid rgb(216, 206, 206);
 }
+.react-scroll-to-bottom--css-xbnhq-1n7m0yu {
+  width: 60vw;
+}
+marquee {
+  font-size: 18px;
+  font-weight: 600;
+}
+.grp {
+  display: flex;
+  flex-direction: row;
+}
+.joined_name td {
+  flex: 0.1;
+  font-size: 12px;
+  font-weight: 600;
+  font-style: oblique;
+  font-stretch: expanded;
+  padding: 10px;
+}
+.joined_name table {
+  overflow: scroll;
+}
 
 .chatBody {
-  flex: 0.8;
+  flex: 0.9;
+  width: 55vw;
   background-color: rgb(228, 217, 217);
   background-repeat: repeat;
   background-position: center;
@@ -36,15 +59,18 @@
 .chatFooter form {
   flex: 1;
   display: flex;
+  align-items: center;
 }
 .chatFooter form input {
   flex: 0.9;
   outline: none;
   margin-bottom: 0px;
+  margin-left: 10px;
   border: none;
   font-family: "calibri";
   border-radius: 20px;
   font-size: 15px;
+  height: 35px;
 }
 .chat_message {
   position: relative;
@@ -53,7 +79,7 @@
   background-color: rgb(137, 206, 238);
   width: fit-content;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 0 14px 14px 14px;
   margin-bottom: 30px;
   text-align: left;
 }
@@ -71,7 +97,7 @@
   background-color: rgb(129, 236, 115);
   width: fit-content;
   text-align: right;
-  border-radius: 10px;
+  border-radius: 14px 14px 0 14px;
   margin-bottom: 30px;
 }
 .chatFooter form button {
@@ -112,7 +138,51 @@
   flex-direction: row;
   align-items: center;
 }
-@media screen and (max-width: 600px) {
+.emojiButtons {
+  display: flex;
+  flex-direction: row;
+}
+.fileSelection {
+  border-radius: 5px;
+  background: rgb(75, 75, 75);
+  padding: 5px;
+  cursor: pointer;
+  color: rgb(150, 144, 155);
+  margin-left: 10px;
+}
+.fileInput {
+  margin-left: 15px;
+  font-size: 14px;
+  background-color: rgb(189, 189, 189);
+  padding: 5px;
+}
+.message_media {
+  width: 70px;
+  height: auto;
+  object-fit: contain;
+}
+.message_media:hover {
+  transform: scale(2);
+  transition: all 0.3s;
+}
+.delete_btn {
+  height: 20px !important;
+  width: 20px !important;
+}
+
+.mediaFile {
+  margin-top: 0;
+}
+.mediaFile:hover {
+  transform: scale(2);
+  transition: all 0.3s;
+  object-fit: contain;
+}
+.mediaFile::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (max-width: 400px) {
   .chatHeader {
     display: flex;
     justify-content: space-between;
@@ -171,8 +241,20 @@
     position: relative;
     height: 100%;
   }
-}
-.delete_btn {
-  height: 20px !important;
-  width: 20px !important;
+  .chatFooter {
+    margin-top: 0;
+  }
+  .fileSendButtons form {
+    display: flex;
+    flex-direction: column;
+  }
+  .fileInput {
+    width: 50px;
+    font-size: 10px;
+  }
+  .fileSelection {
+    font-size: 10px;
+    height: 20px;
+    padding: 0;
+  }
 }

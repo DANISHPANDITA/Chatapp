@@ -55,6 +55,15 @@
   color: black;
   transition: all 0.5s;
 }
+.sidebarChatHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.sidebarSettings {
+  height: 15px;
+  width: 15px;
+}
 @media screen and (max-width: 600px) {
   .chatinfo {
     text-decoration: none;

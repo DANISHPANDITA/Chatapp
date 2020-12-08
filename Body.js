@@ -20,7 +20,7 @@ function Body() {
     w = 930;
   } else {
     h = 420;
-    w = 150;
+    w = 170;
   }
 
   const [img, setimg] = useState("");

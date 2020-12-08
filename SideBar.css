@@ -59,7 +59,7 @@
 }
 @media screen and (max-width: 600px) {
   .sideBar {
-    width: 80px;
+    flex: 0.3;
   }
   .sidebarHeaderRight button {
     font-size: 0.5em;

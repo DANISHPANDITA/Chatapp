@@ -165,6 +165,10 @@ marquee {
   transform: scale(2);
   transition: all 0.3s;
 }
+.deleteButton {
+  height: 20px !important;
+  width: 20px !important;
+}
 .delete_btn {
   height: 20px !important;
   width: 20px !important;
@@ -222,7 +226,7 @@ marquee {
   }
   .chatFooter {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
   .chatFooter form input {
     font-size: 11px;

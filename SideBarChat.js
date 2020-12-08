@@ -1,32 +1,38 @@
-import { Avatar, IconButton } from "@material-ui/core";
+import { Avatar, IconButton, Tooltip } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState, useEffect } from "react";
 import db from "./firebase";
 import "./SideBarChat.css";
 import { DeleteOutlineTwoTone } from "@material-ui/icons";
-function SideBarChat({ addNewChat, id, Name }) {
-  const [img, setimg] = useState("");
-  const [names, setnames] = useState([]);
+import { useStateValue } from "./StateProvider";
+
+function SideBarChat({ addNewChat, id, Name, admin }) {
+  const [{ user }, dispatch] = useStateValue();
+  const [img, setImg] = useState("");
+  const [Names, setNames] = useState([]);
+
   const [messages, setmessages] = useState("");
   const { chatid } = useParams();
   useEffect(() => {
     db.collection("Chats").onSnapshot((snapshot) =>
-      setnames(snapshot.docs.map((doc) => doc.data().Name))
+      setNames(snapshot.docs.map((doc) => doc.Name))
     );
-  }, []);
+  });
 
+  console.log(Names);
   const createChat = () => {
-    const name = prompt("New Name");
+    const name = prompt("Room Name");
     const id = prompt("Create an id");
-
+    const admin = prompt("Admin Name");
     if (name) {
-      if (names.includes(name)) {
+      if (Names.includes(name)) {
         alert("Similar Name Exists");
       } else {
         db.collection("Chats").add({
           id: id,
           Name: name,
+          admin: admin,
         });
       }
     }
@@ -48,7 +54,9 @@ function SideBarChat({ addNewChat, id, Name }) {
       height: theme.spacing(7),
     },
   }));
+
   const classes = useStyles();
+
   useEffect(() => {
     if (id) {
       db.collection("Chats")
@@ -62,7 +70,7 @@ function SideBarChat({ addNewChat, id, Name }) {
   }, [id]);
 
   useEffect(() => {
-    setimg(Math.floor(Math.random() * 2000));
+    setImg(Math.floor(Math.random() * 2000));
   }, []);
 
   function truncate(str, n) {
@@ -80,14 +88,19 @@ function SideBarChat({ addNewChat, id, Name }) {
         <div className="chatinfo">
           <div className="sidebarChatHeader">
             <h3>{Name}</h3>
-            <IconButton className="sidebarSettings">
-              <DeleteOutlineTwoTone
-                onClick={(event) => {
-                  db.collection("Chats").doc(chatid).delete();
-                }}
-              />
-            </IconButton>
+            {admin === user.displayName && (
+              <Tooltip title="Delete">
+                <IconButton className="sidebarSettings">
+                  <DeleteOutlineTwoTone
+                    onClick={(event) => {
+                      db.collection("Chats").doc(chatid).delete();
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+            )}
           </div>
+
           <h4>{truncate(messages[0]?.message, 4)}</h4>
         </div>
       </div>

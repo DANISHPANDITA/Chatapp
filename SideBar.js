@@ -56,7 +56,12 @@ function SideBar({ img, name }) {
             }
           })
           .map((chat) => (
-            <SideBarChat key={chat.id} id={chat.id} Name={chat.data.Name} />
+            <SideBarChat
+              key={chat.id}
+              id={chat.id}
+              Name={chat.data.Name}
+              admin={chat.data.admin}
+            />
           ))}
       </div>
     </div>

@@ -185,7 +185,13 @@ marquee {
 .mediaFile::-webkit-scrollbar {
   display: none;
 }
-
+.react-audio-player {
+  outline: none;
+}
+.CircularProgressbar {
+  width: 50px;
+  height: auto;
+}
 @media screen and (max-width: 400px) {
   .chatHeader {
     display: flex;

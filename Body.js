@@ -11,6 +11,8 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import { DeleteForever } from "@material-ui/icons";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { css } from "@emotion/css";
+import ReactAudioPlayer from "react-audio-player";
+import { CircularProgressbar } from "react-circular-progressbar";
 
 function Body() {
   var h = 0;
@@ -37,6 +39,7 @@ function Body() {
   const { chatid } = useParams();
   const [chatname, setchatname] = useState("");
   const [message, setmessage] = useState([]);
+  const [progress, setprogress] = useState(0);
 
   function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
@@ -54,8 +57,11 @@ function Body() {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        var progress = Math.floor(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
         console.log("Upload is " + progress + "% done");
+        setprogress(progress);
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED:
             console.log("Upload is paused");
@@ -79,10 +85,10 @@ function Body() {
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           });
         });
+        setprogress(0);
+        setmedia(null);
       }
     );
-
-    setmedia(null);
   };
 
   useEffect(() => {
@@ -170,6 +176,41 @@ function Body() {
                           Can't Load PDF
                         </object>
                       </a>
+                      {message.doc.Name === user.displayName && (
+                        <IconButton className="deleteButton">
+                          <DeleteForever
+                            className="delete_btn"
+                            onClick={(event) => {
+                              db.collection("Chats")
+                                .doc(chatid)
+                                .collection("messages")
+                                .doc(message.id)
+                                .delete();
+                            }}
+                          ></DeleteForever>
+                        </IconButton>
+                      )}
+                      <span className="chat_name">{message.doc.Name}</span>
+                      <span className="chat_timestamp">
+                        {new Date(message.doc.timestamp?.toDate())
+                          .toTimeString()
+                          .slice(0, 8)}
+                      </span>
+                    </p>
+                  );
+                } else if (message.doc.message.includes("mp3")) {
+                  return (
+                    <p
+                      className={`chat_message ${
+                        message.doc.Name === user.displayName && "chat_receiver"
+                      }`}
+                    >
+                      <ReactAudioPlayer
+                        src={message.doc.message}
+                        autoPlay
+                        controls
+                      />
+
                       {message.doc.Name === user.displayName && (
                         <IconButton className="deleteButton">
                           <DeleteForever
@@ -311,6 +352,47 @@ function Body() {
                 size="60"
                 id="files"
                 onChange={handleChange}
+              />
+              <CircularProgressbar
+                value={progress}
+                text={`${progress}%`}
+                styles={{
+                  // Customize the root svg element
+                  root: {},
+                  // Customize the path, i.e. the "completed progress"
+                  path: {
+                    // Path color
+                    stroke: `rgba(62, 152, 199, ${progress / 100})`,
+                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                    strokeLinecap: "butt",
+                    // Customize transition animation
+                    transition: "stroke-dashoffset 0.5s ease 0s",
+                    // Rotate the path
+                    transform: "rotate(0.25turn)",
+                    transformOrigin: "center center",
+                  },
+                  // Customize the circle behind the path, i.e. the "total progress"
+                  trail: {
+                    // Trail color
+                    stroke: "#d6d6d6",
+                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                    strokeLinecap: "butt",
+                    // Rotate the trail
+                    transform: "rotate(0.25turn)",
+                    transformOrigin: "center center",
+                  },
+                  // Customize the text
+                  text: {
+                    // Text color
+                    fill: "#f88",
+                    // Text size
+                    fontSize: "16px",
+                  },
+                  // Customize background - only used when the `background` prop is true
+                  background: {
+                    fill: "#3e98c7",
+                  },
+                }}
               />
               <button
                 onClick={handleClick}

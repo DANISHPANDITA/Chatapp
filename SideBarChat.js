@@ -20,7 +20,7 @@ function SideBarChat({ addNewChat, id, Name, admin }) {
     );
   });
 
-  console.log(Names);
+  
   const createChat = () => {
     const name = prompt("Room Name");
     const id = prompt("Create an id");
